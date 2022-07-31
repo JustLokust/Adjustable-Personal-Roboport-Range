@@ -1,0 +1,37 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.8.1
+Date: 2019-05-14
+  Changes:
+    - Changed player_armor -> character_armor for 0.17.35
+---------------------------------------------------------------------------------------------------
+Version: 0.8.0
+Date: 2019-03-28
+  Changes:
+    - Big optimization change. Should no longer lag when using the MAX and MIN toggles.
+  Bugfixes:
+    - Fixed changelog formatting
+    - Added missing locale directory
+---------------------------------------------------------------------------------------------------
+Version: 0.7.2
+Date: 2019-03-28
+  Changes:
+    - Range visualization won't show when removing or adding roboports to armor or when 
+      changing armors.
+    - Redid the code for removing and adding roboports to an equipped armor. Should now default
+      to keeping custom range where possible.
+  Bugfixes:
+    - Fixed range visualization creating multiple overlapping visuals when rapidly changing
+      sizes.
+---------------------------------------------------------------------------------------------------
+Version: 0.7.1
+Date: 2019-03-28
+  Features:
+    - Updated to 0.17.
+    - Added visualization of the construction range when the range has changed
+  Compatibility:
+    - This version only works for 0.17
+---------------------------------------------------------------------------------------------------
+Version: 0.7.0
+Date: 2019-01-01
+  Features:
+    - Initial Release
