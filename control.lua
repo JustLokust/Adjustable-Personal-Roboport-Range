@@ -31,8 +31,8 @@ script.on_init(function()
 end)
 
 --Key ']' was pressed
-script.on_event("AdjRobo-Increment", function()
-   local pData = game.players[1]
+script.on_event("AdjRobo-Increment", function(e)
+   local pData = game.players[e.player_index]
    local armor = pData.get_inventory(defines.inventory.character_armor)
    
 	if not (armor.is_empty()) and armor[1].grid then
@@ -56,8 +56,8 @@ script.on_event("AdjRobo-Increment", function()
 end)
 
 --Key '[' was pressed
-script.on_event("AdjRobo-Decrement", function()
-   local pData = game.players[1]
+script.on_event("AdjRobo-Decrement", function(e)
+   local pData = game.players[e.player_index]
    local armor = pData.get_inventory(defines.inventory.character_armor)
   
   	if not (armor.is_empty()) and armor[1].grid then
@@ -77,8 +77,8 @@ script.on_event("AdjRobo-Decrement", function()
 end)
 
 --Key SHIFT + '[' was pressed
-script.on_event("AdjRobo-DisableRoboport", function()
-	local pData = game.players[1]
+script.on_event("AdjRobo-DisableRoboport", function(e)
+	local pData = game.players[e.player_index]
 	local armor = pData.get_inventory(defines.inventory.character_armor)
 
 	if not (armor.is_empty()) and armor[1].grid then
@@ -97,8 +97,8 @@ script.on_event("AdjRobo-DisableRoboport", function()
 end)
 
 --Key SHIFT + ']' was pressed
-script.on_event("AdjRobo-MaxRange", function()
-	local pData = game.players[1]
+script.on_event("AdjRobo-MaxRange", function(e)
+	local pData = game.players[e.player_index]
 	local armor = pData.get_inventory(defines.inventory.character_armor)
 
 	if not (armor.is_empty()) and armor[1].grid then
@@ -114,22 +114,22 @@ script.on_event("AdjRobo-MaxRange", function()
 	
 end)
 
-script.on_event(defines.events.on_player_placed_equipment, function(event)
-	local pData = game.players[1]
+script.on_event(defines.events.on_player_placed_equipment, function(e)
+	local pData = game.players[e.player_index]
 	local armor = pData.get_inventory(defines.inventory.character_armor)
 
 	if not (armor.is_empty()) then
 		--check if this equipment was added to equipped armor
-		if (event.grid == armor[1].grid) then
+		if (e.grid == armor[1].grid) then
 			--Check for vanilla mk2 or mk1 roboport was added to grid
-			if (event.equipment.name == "personal-roboport-mk2-equipment") or
-				(event.equipment.name == "personal-roboport-equipment") then
+			if (e.equipment.name == "personal-roboport-mk2-equipment") or
+				(e.equipment.name == "personal-roboport-equipment") then
 				
                 --When the current range is 0, due to no previous roboports equipped, adjust 
                 --the current range to match new MAXRange
                 if global.MaxRange == 0 then
                     
-                    global.MaxRange = GetMaxRange(event.grid)
+                    global.MaxRange = GetMaxRange(e.grid)
                     
                     global.RequestedRange.current = global.MaxRange
                     global.RequestedRange.old = global.MaxRange
@@ -139,7 +139,7 @@ script.on_event(defines.events.on_player_placed_equipment, function(event)
                  --All checks have been completed by this point. Adjust the range to match
                  --current and set new MaxRange
                 else
-                    global.MaxRange = GetMaxRange(event.grid)
+                    global.MaxRange = GetMaxRange(e.grid)
                     
                      AdjustRoboportRange(armor[1].grid, true)
                 end
@@ -149,18 +149,18 @@ script.on_event(defines.events.on_player_placed_equipment, function(event)
 	end
 end)
 
-script.on_event(defines.events.on_player_removed_equipment, function(event)
-	local pData = game.players[1]
+script.on_event(defines.events.on_player_removed_equipment, function(e)
+	local pData = game.players[e.player_index]
 	local armor = pData.get_inventory(defines.inventory.character_armor)
 												
 	if not (armor.is_empty()) then
 		--check if this equipment was removed from equipped armor
-		if (event.grid == armor[1].grid) then
-				if ("personal-roboport-mk2-equipment" == event.equipment)  or
-				   ("personal-roboport-equipment" == event.equipment) then
+		if (e.grid == armor[1].grid) then
+				if ("personal-roboport-mk2-equipment" == e.equipment)  or
+				   ("personal-roboport-equipment" == e.equipment) then
 				   
 					--change the MaxRange to account for one less roboport
-					global.MaxRange = GetMaxRange(event.grid)
+					global.MaxRange = GetMaxRange(e.grid)
 					
 					--RequestedRange can't be higher than the MaxRange
 					if (global.RequestedRange.current > global.MaxRange) then
@@ -182,8 +182,8 @@ script.on_event(defines.events.on_player_removed_equipment, function(event)
 	end--end if
 end)
 
-script.on_event(defines.events.on_player_armor_inventory_changed, function()
-	local pData = game.players[1]
+script.on_event(defines.events.on_player_armor_inventory_changed, function(e)
+	local pData = game.players[e.player_index]
 	local armor = pData.get_inventory(defines.inventory.character_armor)
 		
 	if (not (armor.is_empty())) and armor[1].grid then
