@@ -1,8 +1,16 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.8.2
 Date: 2022-07-31
-  Changes:
+  Compatibility:
     - Updated to Factorio v1.1
+    - Added incompatibility flag for Closest First mod. (Causes unresponsive freezing)
+  Bugfixes:
+    - Fixed a bug that cause incompatibility with Jetpack mod
+    - Fixed a crash when you remove a lower tier armor and create a high tier armor
+      from the lower tier armor without having any armor on
+  Features:
+    - Added flying text letting users know max\min range is reached.
+    - Added flying text letting users know when construction is turned on or off.
 ---------------------------------------------------------------------------------------------------
 Version: 0.8.1
 Date: 2019-05-14
