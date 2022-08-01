@@ -190,7 +190,10 @@ script.on_event(defines.events.on_player_armor_inventory_changed, function(e)
 		--Few possibilities:
 		--1) The armor was swapped for a different armor
 		--2) Armor was placed into a previously empty armor slot
-		
+		--3) Armor was destroyed in some way. 
+		--		a) Ingrendent in upgraded armor
+		--		b) Some mod change the armor (Looking at you Jetpack mod)
+
 		--MaxRange needs to be updated for new armor configuration
 		global.MaxRange = GetMaxRange(armor[1].grid)
 		
@@ -214,7 +217,7 @@ script.on_event(defines.events.on_player_armor_inventory_changed, function(e)
 		end
 		
 		AdjustRoboportRange(armor[1].grid, true)
-		
+
 		--Clean the armor that was swapped out. It is still stored by reference in EquipedArmorGrid
 		if not (global.EquipedArmorGrid == false) then UndoAdjustRoboportRange(global.EquipedArmorGrid) end
 		
@@ -224,10 +227,15 @@ script.on_event(defines.events.on_player_armor_inventory_changed, function(e)
 		--Armor was removed from the armor slot by selecting the armor and now its in the cursor
 		if (pData.cursor_stack.is_armor) and pData.cursor_stack.grid then
 			UndoAdjustRoboportRange(pData.cursor_stack.grid)
+			global.EquipedArmorGrid = false
 		end
 		
 		--The armor was shift clicked to remove. Clean up
-		if not (global.EquipedArmorGrid == false) then UndoAdjustRoboportRange(global.EquipedArmorGrid) end
+		if not (global.EquipedArmorGrid == false) then
+			UndoAdjustRoboportRange(global.EquipedArmorGrid)
+			global.EquipedArmorGrid = false
+		end
+
 		
 	end
 	

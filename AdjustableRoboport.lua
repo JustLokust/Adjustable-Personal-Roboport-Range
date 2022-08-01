@@ -484,7 +484,7 @@ function CleanCustomRoboports(inventory)
 	local listOfCustomMk2Roboports = {"personal-roboport-mk2-equipment-R0", "personal-roboport-mk2-equipment-R10", 
 													"personal-roboport-mk2-equipment-R20", "personal-roboport-mk2-equipment-R30"}
 	--Make sure LuaInventory object is valid
-	if inventory.valid then 
+	if inventory.valid then
 		for index = 1, table.maxn(listOfCustomMk2Roboports)
 		do
 			local itemStack = false
