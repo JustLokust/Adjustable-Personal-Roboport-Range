@@ -68,8 +68,10 @@ script.on_event("AdjRobo-Decrement", function(e)
 				
 				--Re-adjust the armor to account for new range
 			    AdjustRoboportRange(armor[1].grid)
+				
 			elseif ((global.RequestedRange.current < 20) and not armor.is_empty()) then
 				pData.create_local_flying_text{text = "Lowest Range", position = pData.position}
+				VisualizeRange(pData)
 			end
 		else
 			pData.play_sound{path = "utility/cannot_build"}
