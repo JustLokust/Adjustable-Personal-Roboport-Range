@@ -59,7 +59,7 @@ end)
 script.on_event("AdjRobo-Decrement", function(e)
    local pData = game.players[e.player_index]
    local armor = pData.get_inventory(defines.inventory.character_armor)
-  
+   
   	if not (armor.is_empty()) and armor[1].grid then
 		if (global.TurnOffConstruction == false) then
 		
@@ -68,6 +68,8 @@ script.on_event("AdjRobo-Decrement", function(e)
 				
 				--Re-adjust the armor to account for new range
 			    AdjustRoboportRange(armor[1].grid)
+			elseif ((global.RequestedRange.current < 20) and not armor.is_empty()) then
+				pData.create_local_flying_text{text = "Lowest Range", position = pData.position}
 			end
 		else
 			pData.play_sound{path = "utility/cannot_build"}
@@ -87,11 +89,13 @@ script.on_event("AdjRobo-DisableRoboport", function(e)
 			global.RequestedRange.current = global.RequestedRange.old
 			AdjustRoboportRange(armor[1].grid)
 			global.TurnOffConstruction = false
+			pData.create_local_flying_text{text = "Construction On", position = pData.position}
 		else
 			global.RequestedRange.old = global.RequestedRange.current
 			global.RequestedRange.current = 0
 			AdjustRoboportRange(armor[1].grid)
 			global.TurnOffConstruction = true
+			pData.create_local_flying_text{text = "Construction Off", position = pData.position}
 		end
 	end
 end)
