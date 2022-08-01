@@ -219,7 +219,7 @@ script.on_event(defines.events.on_player_armor_inventory_changed, function(e)
 		AdjustRoboportRange(armor[1].grid, true)
 
 		--Clean the armor that was swapped out. It is still stored by reference in EquipedArmorGrid
-		if not (global.EquipedArmorGrid == false) then UndoAdjustRoboportRange(global.EquipedArmorGrid) end
+		if not (global.EquipedArmorGrid == false) and global.EquipedArmorGrid.valid then UndoAdjustRoboportRange(global.EquipedArmorGrid) end
 		
 		--Set the new equipped armor reference for next armor swap
 		global.EquipedArmorGrid = armor[1].grid
