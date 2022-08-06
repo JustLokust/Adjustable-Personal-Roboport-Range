@@ -128,7 +128,11 @@ script.on_event("AdjRobo-MinRange", function(e)
 
 	if not (armor.is_empty()) and armor[1].grid and global.MaxRange ~= 0 then
 		if (global.RequestedRange.current == global.MinRange) then
-			global.RequestedRange.current = global.RequestedRange.old
+			if global.RequestedRange.current == global.RequestedRange.old then
+				pData.create_local_flying_text{text = "Max Range", position = pData.position}
+			else
+				global.RequestedRange.current = global.RequestedRange.old
+			end
 		else
 			global.RequestedRange.old = global.RequestedRange.current
 			global.RequestedRange.current = global.MinRange
@@ -149,7 +153,11 @@ script.on_event("AdjRobo-MaxRange", function(e)
 
 	if not (armor.is_empty()) and armor[1].grid and global.MaxRange ~= 0 then
 		if (global.RequestedRange.current == global.MaxRange) then
-			global.RequestedRange.current = global.RequestedRange.old
+			if global.RequestedRange.current == global.RequestedRange.old then
+				pData.create_local_flying_text{text = "Max Range", position = pData.position}
+			else
+				global.RequestedRange.current = global.RequestedRange.old
+			end
 		else
 			global.RequestedRange.old = global.RequestedRange.current
 			global.RequestedRange.current = global.MaxRange
