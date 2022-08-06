@@ -1,9 +1,9 @@
 {
   "name": "Adjustable-Personal-Roboport-Range",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "title": "Adjustable Personal Roboport Range",
   "author": "ProfounDisputes",
-  "Licence": "MIT",
+  "License": "MIT",
   "description": "Allows you to change the range of personal roboports.",
   "dependencies": ["base >= 1.1", "! ClosestFirstOneDotOne"],
   "factorio_version": "1.1"

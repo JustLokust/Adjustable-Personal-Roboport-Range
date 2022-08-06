@@ -134,6 +134,7 @@ script.on_event("AdjRobo-MaxRange", function(e)
 		end
 		global.TurnOffConstruction = false
 		AdjustRoboportRange(armor[1].grid, pData)
+		pData.create_local_flying_text{text = "Max Range", position = pData.position}
 	end
 	
 end)
