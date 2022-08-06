@@ -162,8 +162,8 @@ script.on_event(defines.events.on_player_removed_equipment, function(e)
 	if not (armor.is_empty()) then
 		--check if this equipment was removed from equipped armor
 		if (e.grid == armor[1].grid) then
-				if ("personal-roboport-mk2-equipment" == e.equipment)  or
-				   ("personal-roboport-equipment" == e.equipment) then
+				if (string.find(e.equipment, "personal%-roboport%-mk2%-equipment") ~= nil or
+				   string.find(e.equipment, "personal%-roboport%-equipment") ~= nil) then
 				   
 					--change the MaxRange to account for one less roboport
 					global.MaxRange = GetMaxRange(e.grid)
