@@ -9,6 +9,7 @@ global.RequestedRange = {current=false, old=false}
 global.MaxRange = false
 global.TurnOffConstruction = false
 global.EquipedArmorGrid = false
+global.MinRange = 10
 
 require "AdjustableRoboport"
 
@@ -94,7 +95,7 @@ script.on_event("AdjRobo-Decrement", function(e)
 	end
 end)
 
---Key SHIFT + '[' was pressed
+--Key CONTROL + '[' was pressed
 script.on_event("AdjRobo-DisableRoboport", function(e)
 	local pData = game.players[e.player_index]
 	local armor = pData.get_inventory(defines.inventory.character_armor)
@@ -118,6 +119,27 @@ script.on_event("AdjRobo-DisableRoboport", function(e)
 	end
 end)
 
+--Key SHIFT + '[' was pressed
+script.on_event("AdjRobo-MinRange", function(e)
+	local pData = game.players[e.player_index]
+	local armor = pData.get_inventory(defines.inventory.character_armor)
+
+	if (not GlobalsAreInitilized()) then initializeGlobals(pData) end
+
+	if not (armor.is_empty()) and armor[1].grid and global.MaxRange ~= 0 then
+		if (global.RequestedRange.current == global.MinRange) then
+			global.RequestedRange.current = global.RequestedRange.old
+		else
+			global.RequestedRange.old = global.RequestedRange.current
+			global.RequestedRange.current = global.MinRange
+			pData.create_local_flying_text{text = "Min Range", position = pData.position}
+		end
+		global.TurnOffConstruction = false
+		AdjustRoboportRange(armor[1].grid, pData)
+	end
+	
+end)
+
 --Key SHIFT + ']' was pressed
 script.on_event("AdjRobo-MaxRange", function(e)
 	local pData = game.players[e.player_index]
@@ -131,10 +153,10 @@ script.on_event("AdjRobo-MaxRange", function(e)
 		else
 			global.RequestedRange.old = global.RequestedRange.current
 			global.RequestedRange.current = global.MaxRange
+			pData.create_local_flying_text{text = "Max Range", position = pData.position}
 		end
 		global.TurnOffConstruction = false
 		AdjustRoboportRange(armor[1].grid, pData)
-		pData.create_local_flying_text{text = "Max Range", position = pData.position}
 	end
 	
 end)

@@ -311,11 +311,12 @@ local function AdjustRoboportName(armor, namePosition)
     end
 end
 
+--Function adjusts range based on global.RequestedRange.current for its operations. Not anything passed in.
 function AdjustRoboportRange(equipmentGrid, pData, DontShowNewRange)
     
 	if not IsAdjusted(equipmentGrid) then
         
-        while (GetTotalRange(equipmentGrid) ~= global.RequestedRange.current) do
+        while not IsAdjusted(equipmentGrid) do
             
             local equipment = equipmentGrid.equipment
             local foundRoboports = {name=false, position=false}
@@ -439,7 +440,8 @@ function AdjustRoboportRange(equipmentGrid, pData, DontShowNewRange)
 		else
 			return false
 		end
-        
+    else
+		if DontShowNewRange == nil then VisualizeRange(pData) end
 	end--end if
 end
 
