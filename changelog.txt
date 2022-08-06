@@ -1,6 +1,12 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.8.2
-Date: 2022-07-31
+Version: 0.9
+Date: 2022-08-06
+  Features:
+    - Add support for multiplayer
+    - Added flying text letting users know max\min range is reached.
+    - Added flying text letting users know when construction is turned on or off.
+    - Added flying text letting users know range can't be changed since construction is off
+    - Added flying text when using the Max toggle, to indicate max range
   Compatibility:
     - Updated to Factorio v1.1
     - Added incompatibility flag for Closest First mod. (Causes unresponsive freezing)
@@ -9,10 +15,7 @@ Date: 2022-07-31
     - Fixed a crash when you remove a lower tier armor and create a high tier armor
       from the lower tier armor without having any armor on
     - Fixed there was no visualizations for lowest and highest range
-  Features:
-    - Added flying text letting users know max\min range is reached.
-    - Added flying text letting users know when construction is turned on or off.
-    - Added flying text letting users know range can't be changed since construction is off
+    - Fixed removing roboport from equipment and using Max toggle causes game to hang\freeze
 ---------------------------------------------------------------------------------------------------
 Version: 0.8.1
 Date: 2019-05-14
