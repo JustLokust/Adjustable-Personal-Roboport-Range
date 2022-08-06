@@ -67,8 +67,7 @@ end
 
 function GetTotalRange(equipmentGrid)
 	local totalRange = false
-	for index = 1, table.maxn(equipmentGrid.equipment) 
-	do
+	for index = 1, table.maxn(equipmentGrid.equipment) do
 		
 		--Check equipment for roboport
 		if (equipmentGrid.equipment[index].name == "personal-roboport-equipment") then
@@ -312,11 +311,12 @@ local function AdjustRoboportName(armor, namePosition)
     end
 end
 
-function AdjustRoboportRange(equipmentGrid, DontShowNewRange)
+--Function adjusts range based on global.RequestedRange.current for its operations. Not anything passed in.
+function AdjustRoboportRange(equipmentGrid, pData, DontShowNewRange)
     
 	if not IsAdjusted(equipmentGrid) then
         
-        while (GetTotalRange(equipmentGrid) ~= global.RequestedRange.current) do
+        while not IsAdjusted(equipmentGrid) do
             
             local equipment = equipmentGrid.equipment
             local foundRoboports = {name=false, position=false}
@@ -435,17 +435,17 @@ function AdjustRoboportRange(equipmentGrid, DontShowNewRange)
 		
 		--final check to see if equipmentGrid was proper adjusted to global.RequestedRange.current
 		if (GetTotalRange(equipmentGrid) == global.RequestedRange.current) then
-            if DontShowNewRange == nil then VisualizeRange(game.players[1]) end
+            if DontShowNewRange == nil then VisualizeRange(pData) end
 			return true
 		else
 			return false
 		end
-        
+    else
+		if DontShowNewRange == nil then VisualizeRange(pData) end
 	end--end if
 end
 
 function UndoAdjustRoboportRange(equipmentGrid)
-	local pData = game.players[1]
 	local equipment = equipmentGrid.equipment
 	
 	local listOfCustomRoboports = {"personal-roboport-equipment-R0", "personal-roboport-equipment-R10", 
@@ -484,7 +484,7 @@ function CleanCustomRoboports(inventory)
 	local listOfCustomMk2Roboports = {"personal-roboport-mk2-equipment-R0", "personal-roboport-mk2-equipment-R10", 
 													"personal-roboport-mk2-equipment-R20", "personal-roboport-mk2-equipment-R30"}
 	--Make sure LuaInventory object is valid
-	if inventory.valid then 
+	if inventory.valid then
 		for index = 1, table.maxn(listOfCustomMk2Roboports)
 		do
 			local itemStack = false

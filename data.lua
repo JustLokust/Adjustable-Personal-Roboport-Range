@@ -9,6 +9,14 @@ local IncrementKey =
 	consuming = "none",
 }
 
+local MinRangeKey = 
+{
+	type = "custom-input",
+	name = "AdjRobo-MinRange",
+	key_sequence = "SHIFT + [",
+	consuming = "none",
+}
+
 local MaxRangeKey = 
 {
 	type = "custom-input",
@@ -29,8 +37,8 @@ local DisableRoboportKey =
 {
 	type = "custom-input",
 	name = "AdjRobo-DisableRoboport",
-	key_sequence = "SHIFT + [",
+	key_sequence = "CONTROL + [",
 	consuming = "none",
 }
 
-data:extend({DecrementKey, IncrementKey, DisableRoboportKey, MaxRangeKey})
+data:extend({DecrementKey, IncrementKey, DisableRoboportKey, MinRangeKey, MaxRangeKey})
