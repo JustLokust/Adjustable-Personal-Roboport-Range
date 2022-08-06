@@ -67,8 +67,7 @@ end
 
 function GetTotalRange(equipmentGrid)
 	local totalRange = false
-	for index = 1, table.maxn(equipmentGrid.equipment) 
-	do
+	for index = 1, table.maxn(equipmentGrid.equipment) do
 		
 		--Check equipment for roboport
 		if (equipmentGrid.equipment[index].name == "personal-roboport-equipment") then
@@ -312,7 +311,7 @@ local function AdjustRoboportName(armor, namePosition)
     end
 end
 
-function AdjustRoboportRange(equipmentGrid, DontShowNewRange)
+function AdjustRoboportRange(equipmentGrid, pData, DontShowNewRange)
     
 	if not IsAdjusted(equipmentGrid) then
         
@@ -435,7 +434,7 @@ function AdjustRoboportRange(equipmentGrid, DontShowNewRange)
 		
 		--final check to see if equipmentGrid was proper adjusted to global.RequestedRange.current
 		if (GetTotalRange(equipmentGrid) == global.RequestedRange.current) then
-            if DontShowNewRange == nil then VisualizeRange(game.players[1]) end
+            if DontShowNewRange == nil then VisualizeRange(pData) end
 			return true
 		else
 			return false
@@ -445,7 +444,6 @@ function AdjustRoboportRange(equipmentGrid, DontShowNewRange)
 end
 
 function UndoAdjustRoboportRange(equipmentGrid)
-	local pData = game.players[1]
 	local equipment = equipmentGrid.equipment
 	
 	local listOfCustomRoboports = {"personal-roboport-equipment-R0", "personal-roboport-equipment-R10", 
